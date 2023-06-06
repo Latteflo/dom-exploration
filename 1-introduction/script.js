@@ -17,3 +17,4 @@ const genealogycalTree = document.body.children
 for (let i = 0; i < genealogycalTree.length; i++) {
   console.log(genealogycalTree[i])
 }
+

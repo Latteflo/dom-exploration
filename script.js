@@ -1,5 +1,5 @@
 //////// printing the document title in the console.log//////
-console.log(document.title) /// expected answer :"Alchemy for beginers"
+console.log(document.title) /// expected answer :"Exploring the DOM"
 
 //////// changing the document title /////
 

@@ -45,8 +45,8 @@ const colors = ["red", "green", "blue", "yellow", "pink"];
 // Get reference to the .displayedsquare-wrapper
 const wrapper = document.querySelector(".displayedsquare-wrapper");
 
-// Get reference to the log
-const log = document.querySelector(".log");
+// Get reference to the ul
+const ul = document.querySelector("ul");
 
 // Function to generate a random color
 function getRandomColor() {
@@ -61,9 +61,11 @@ actionSquares.forEach(actionSquare => {
     div.classList.add("displayedsquare", e.target.classList[1]); ///assign class 
     wrapper.appendChild(div); ///append child
 
-    // Create new log entry
+    // Create new ul entry as li items
     const li = document.createElement("li"); // create li bucket for info
-    li.textContent = `Square with color ${e.target.classList[1]} was clicked at ${getElapsedTime()}`;/// add context to li - string and value
-    log.appendChild(li);/// append child to parent
+    li.textContent = `[ ${getElapsedTime()} ] Created a new square with ${e.target.classList[1]} color `;/// add context to li - string and value
+    ul.appendChild(li);/// append child to parent
   });
 });
+
+

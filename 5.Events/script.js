@@ -26,3 +26,30 @@ for (let actionSquare of actionSquares) {
   actionSquare.addEventListener('click', clickOnSquare)
 }
 
+///////////////////////////////// REQuirements: ////////////////////////////////////////////////////////////////////
+//Everytime the user clicks on one of the action squares:
+//Create a new <div> with a class .displayedsquare and the corresponding clicked color in the div above (.displayedsquare-wrapper)
+//Create a new <li> in the log below to state when the action was done It should look like this
+//Add an event listener on the document <body>, listening for the keypress event.
+//When the spacebar is hit randomly change the background color of the whole page
+//Log when the spacebar is used the same way you used for the generated squares.
+//When the l key is pressed the log gets deleted (erases the generated <li>s) using a while loop
+//When the s key is pressed the squares get deleted (erases the generated squares)
+//Create a system so that when a user clicks on a generated square an alert pops-up with the color of that square.
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Assign a list of potential colors
+const colors = ["red", "green", "blue", "yellow", "pink"];
+
+// Get reference to the .displayedsquare-wrapper
+const wrapper = document.querySelector(".displayedsquare-wrapper");
+
+// Get reference to the log
+const log = document.querySelector(".log");
+
+// Function to generate a random color
+function getRandomColor() {
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+

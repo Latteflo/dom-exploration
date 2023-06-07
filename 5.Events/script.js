@@ -6,7 +6,7 @@ const getElapsedTime = () => {
   // Calculate the elapsed time by subtracting _initTime from the current time / 1000 to convert milliseconds to seconds.
   // The Number() function is used to convert the result to a number and toFixed(2) ensures the result is a string with a maximum of two decimals
   // The result is then concatenated with 's' to indicate seconds.
-  return Number((Date.now() - _initTime) / 1000).toFixed(2) + 's'
+  return Number((Date.now() - _initTime) / 1000).toFixed(2) + "s"
 }
 
 // Declare a function clickOnSquare that logs the second class of the clicked element (e.target.classList[1]) and the elapsed time since _initTime.
@@ -18,12 +18,12 @@ const clickOnSquare = (e) => {
 }
 
 // Get all elements with the class 'actionsquare' and assign them to the variable actionSquares
-const actionSquares = document.querySelectorAll('.actionsquare')
+const actionSquares = document.querySelectorAll(".actionsquare")
 
 // Iterate through each element in actionSquares
 for (let actionSquare of actionSquares) {
   // Add an event listener to each element in actionSquares, which triggers the clickOnSquare function when the element is clicked.
-  actionSquare.addEventListener('click', clickOnSquare)
+  actionSquare.addEventListener("click", clickOnSquare)
 }
 
 ///////////////////////////////// REQuirements: ////////////////////////////////////////////////////////////////////
@@ -40,32 +40,58 @@ for (let actionSquare of actionSquares) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Assign a list of potential colors
-const colors = ["red", "green", "blue", "yellow", "pink"];
+const colors = ["red", "green", "blue", "yellow", "pink"]
 
 // Get reference to the .displayedsquare-wrapper
-const wrapper = document.querySelector(".displayedsquare-wrapper");
+const wrapper = document.querySelector(".displayedsquare-wrapper")
 
-// Get reference to the ul
-const ul = document.querySelector("ul");
+// Get global reference of the ul as we will use it inside of functions too
+var ul = document.querySelector("ul")
 
 // Function to generate a random color
 function getRandomColor() {
-  return colors[Math.floor(Math.random() * colors.length)];
+  return colors[Math.floor(Math.random() * colors.length)]
 }
 
 // Add click event to action squares
-actionSquares.forEach(actionSquare => {
+actionSquares.forEach((actionSquare) => {
   actionSquare.addEventListener("click", (e) => {
     // Create new div and assign class and color
-    const div = document.createElement("div");  /// creates new div
-    div.classList.add("displayedsquare", e.target.classList[1]); ///assign class 
-    wrapper.appendChild(div); ///append child
+    const div = document.createElement("div") /// creates new div
+    div.classList.add("displayedsquare", e.target.classList[1]) ///assign class
+    wrapper.appendChild(div) ///append child
 
     // Create new ul entry as li items
-    const li = document.createElement("li"); // create li bucket for info
-    li.textContent = `[ ${getElapsedTime()} ] Created a new square with ${e.target.classList[1]} color `;/// add context to li - string and value
-    ul.appendChild(li);/// append child to parent
-  });
-});
+    const li = document.createElement("li") // create li bucket for info
+    li.textContent = `[ ${getElapsedTime()} ] Created a new square with ${
+      e.target.classList[1]
+    } color ` /// add context to li - string and value
+    ul.appendChild(li) /// append child to parent
+  })
+})
 
-
+// Add keypress event to body
+document.body.addEventListener("keypress", (e) => {
+  if (e.code === "Space") {
+    //keyCode is deprecated that's why I use code
+    // Change the background color of the page when spacebar is pressed
+    document.body.style.backgroundColor = getRandomColor()
+    // Log the event
+    const li = document.createElement("li") ///create li bucket
+    li.textContent = `[ ${getElapsedTime()} ] Background color was changed.` ///add text
+    ul.appendChild(li) //append child
+  } else if (e.code === "KeyL") {
+    // Delete ul entries when 'l' key is pressed
+    while (ul.firstChild) {
+      // while there is a child in ul
+      ul.removeChild(ul.firstChild) // we remove it
+    }
+  } else if (e.code === "KeyS") {
+    // Delete squares when 's' key is pressed
+    const squares = document.getElementsByClassName("displayedsquare") // select container with class name for squares
+    Array.from(squares).forEach((square) => {
+      //turn it into array and loop trough each of them to remove the children
+      square.parentNode.removeChild(square)
+    })
+  }
+})

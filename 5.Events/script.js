@@ -53,3 +53,17 @@ function getRandomColor() {
   return colors[Math.floor(Math.random() * colors.length)];
 }
 
+// Add click event to action squares
+actionSquares.forEach(actionSquare => {
+  actionSquare.addEventListener("click", (e) => {
+    // Create new div and assign class and color
+    const div = document.createElement("div");  /// creates new div
+    div.classList.add("displayedsquare", e.target.classList[1]); ///assign class 
+    wrapper.appendChild(div); ///append child
+
+    // Create new log entry
+    const li = document.createElement("li"); // create li bucket for info
+    li.textContent = `Square with color ${e.target.classList[1]} was clicked at ${getElapsedTime()}`;/// add context to li - string and value
+    log.appendChild(li);/// append child to parent
+  });
+});

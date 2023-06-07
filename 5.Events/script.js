@@ -95,3 +95,12 @@ document.body.addEventListener("keypress", (e) => {
     })
   }
 })
+
+// Add a click event listener to the 'wrapper' element
+wrapper.addEventListener("click", (e) => {
+  // Check if the clicked element has a class 'displayedsquare'
+  if (e.target.classList.contains("displayedsquare")) {
+    // Display an alert with the color of the clicked square assuming that the color is added as a second class
+    alert(`The color of this square is ${e.target.classList[1]}`)
+  }
+})

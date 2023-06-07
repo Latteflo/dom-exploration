@@ -45,8 +45,8 @@ const colors = ["red", "green", "blue", "yellow", "pink"]
 // Get reference to the .displayedsquare-wrapper
 const wrapper = document.querySelector(".displayedsquare-wrapper")
 
-// Get reference to the ul
-const ul = document.querySelector("ul")
+// Get global reference of the ul as we will use it inside of functions too
+var ul = document.querySelector("ul")
 
 // Function to generate a random color
 function getRandomColor() {
@@ -72,22 +72,25 @@ actionSquares.forEach((actionSquare) => {
 
 // Add keypress event to body
 document.body.addEventListener("keypress", (e) => {
-  if (e.key === 32) {
+  if (e.code === "Space") {
+    //keyCode is deprecated that's why I use code
     // Change the background color of the page when spacebar is pressed
     document.body.style.backgroundColor = getRandomColor()
     // Log the event
-    const li = document.createElement("li")
-    li.textContent = `[ ${getElapsedTime()} ] Background color was changed`
-    ul.appendChild(li)
-  } else if (e.key === 108) {
-    // Delete log entries when 'l' key is pressed
-    while (log.firstChild) {
-      ul.removeChild(log.firstChild)
+    const li = document.createElement("li") ///create li bucket
+    li.textContent = `[ ${getElapsedTime()} ] Background color was changed.` ///add text
+    ul.appendChild(li) //append child
+  } else if (e.code === "KeyL") {
+    // Delete ul entries when 'l' key is pressed
+    while (ul.firstChild) {
+      // while there is a child in ul
+      ul.removeChild(ul.firstChild) // we remove it
     }
-  } else if (e.key === 115) {
+  } else if (e.code === "KeyS") {
     // Delete squares when 's' key is pressed
-    const squares = document.querySelectorAll(".displayedsquare")
-    squares.forEach((square) => {
+    const squares = document.getElementsByClassName("displayedsquare") // select container with class name for squares
+    Array.from(squares).forEach((square) => {
+      //turn it into array and loop trough each of them to remove the children
       square.parentNode.removeChild(square)
     })
   }

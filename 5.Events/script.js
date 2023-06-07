@@ -26,3 +26,46 @@ for (let actionSquare of actionSquares) {
   actionSquare.addEventListener('click', clickOnSquare)
 }
 
+///////////////////////////////// REQuirements: ////////////////////////////////////////////////////////////////////
+//Everytime the user clicks on one of the action squares:
+//Create a new <div> with a class .displayedsquare and the corresponding clicked color in the div above (.displayedsquare-wrapper)
+//Create a new <li> in the log below to state when the action was done It should look like this
+//Add an event listener on the document <body>, listening for the keypress event.
+//When the spacebar is hit randomly change the background color of the whole page
+//Log when the spacebar is used the same way you used for the generated squares.
+//When the l key is pressed the log gets deleted (erases the generated <li>s) using a while loop
+//When the s key is pressed the squares get deleted (erases the generated squares)
+//Create a system so that when a user clicks on a generated square an alert pops-up with the color of that square.
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Assign a list of potential colors
+const colors = ["red", "green", "blue", "yellow", "pink"];
+
+// Get reference to the .displayedsquare-wrapper
+const wrapper = document.querySelector(".displayedsquare-wrapper");
+
+// Get reference to the ul
+const ul = document.querySelector("ul");
+
+// Function to generate a random color
+function getRandomColor() {
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
+// Add click event to action squares
+actionSquares.forEach(actionSquare => {
+  actionSquare.addEventListener("click", (e) => {
+    // Create new div and assign class and color
+    const div = document.createElement("div");  /// creates new div
+    div.classList.add("displayedsquare", e.target.classList[1]); ///assign class 
+    wrapper.appendChild(div); ///append child
+
+    // Create new ul entry as li items
+    const li = document.createElement("li"); // create li bucket for info
+    li.textContent = `[ ${getElapsedTime()} ] Created a new square with ${e.target.classList[1]} color `;/// add context to li - string and value
+    ul.appendChild(li);/// append child to parent
+  });
+});
+
+

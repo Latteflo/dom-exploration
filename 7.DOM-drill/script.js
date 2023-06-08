@@ -16,9 +16,11 @@ however Fast and Furious should remain the first element (most important franchi
 
 (*) Modify the previous function so that when you press the letter d of your keyboard, the Fast and Furious element gets cloned
 Create a new <div> before the list, using createElement and insertBefore
-
 Using createElement, create a <select> tag into the previously created <div>, with two <option>s in it: "important franchises" and "normal franchises"
 Add an eventListener to the <select>, on change, if the option "important franchise" is chosen, only display items of the list that have the class .important. (hint: you can toggle visibility using element.style.visibility = 'hidden')*/
+
+//declare the parent node
+let parent = document.body
 
 // Get the ul element
 let ul = document.querySelector("ul")
@@ -54,7 +56,7 @@ for (let i = 0; i < children.length; i++) {
 }
 
 // Shuffle the titles but keep FF to the top
-document.body.addEventListener("keypress", (e) => {
+parent.addEventListener("keypress", (e) => {
   if (e.code === "R") {
     // Create a new array with the children of the ul
     let array = Array.from(ul.children)
@@ -76,48 +78,55 @@ document.body.addEventListener("keypress", (e) => {
 
 // Add the functional select with options tags on change- .important - visible//
 
-// we create the div
+// create the div
 let selectorContainer = document.createElement("div")
-// we create the select tag
+// create the select tag
 let selector = document.createElement("select")
-//we declare the first option
+//declare the first option
 let option1 = document.createElement("option")
-// we add the text to the option
+// add the text to the option
 option1.textContent = "important franchises"
-// we add the value to the option
+// add the value to the option
 option1.value = "0"
-// we declare the second option
+// declare the second option
 let option2 = document.createElement("option")
-// we add text to the second option
+// add text to the second option
 option2.textContent = "normal franchises"
-// we add the value to the option
+// add the value to the option
 option2.value = "1"
 
-// we append the children to the parent selector
+// append the children to the parent selector
 selector.appendChild(option1)
 selector.appendChild(option2)
-// we append the selector the the created div
+// append the selector the the created div
 selectorContainer.appendChild(selector)
 
-// we append the div to the body
-document.body.appendChild(selectorContainer)
-// we declare a handleChange that takes care of the interraction
+// append the div
+ // get a reference node for the append child
+let referenceNode = document.querySelector("h1"); 
+//make sure that the parent of the reference node is used
+let parentOfDiv = referenceNode.parentNode;
+// insert the selectorContainer node
+parentOfDiv.insertBefore(selectorContainer, referenceNode);
 
+// declare a handleChange that takes care of the interraction
 const handleChange = (event) => {
-  // we target the value of the options
+  //  target the value of the options
   let selectedValue = event.target.value
-  //we add the condition - which is if the first option is selected
+  // add the condition - which is if the first option is selected
   if (selectedValue === "0") {
-    // we select the items with the class of important
+    //  select the items with the class of important
     let items = ul.querySelectorAll(".important")
-    // we add the style vizibility to the important items
+    //  add the style vizibility to the important items
     items.forEach((item) => (item.style.visibility = "visible"))
-    //we target the items that do NOT have the class of important
+    // target the items that do NOT have the class of important
     let notImportantItems = ul.querySelectorAll(":not(.important)")
-    // we adjust the visibility to hidden for these
+    //  adjust the visibility to hidden for these
     notImportantItems.forEach((item) => (item.style.visibility = "hidden"))
+  }else{
+    ul.style.visibility= "visible"
   }
 }
 
-// we add the event listener that will check which option is clicked and toggle the handleChange function
+// add the event listener that will check which option is clicked and toggle the handleChange function
 selector.addEventListener("change", handleChange)

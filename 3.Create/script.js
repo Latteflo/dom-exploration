@@ -83,4 +83,3 @@ function addNewSection(learner) {
     addNewSection(learner);
   });
   
-  

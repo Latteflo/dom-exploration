@@ -109,24 +109,35 @@ let parentOfDiv = referenceNode.parentNode;
 // insert the selectorContainer node
 parentOfDiv.insertBefore(selectorContainer, referenceNode);
 
-// declare a handleChange that takes care of the interraction
+// Define a helper function to set visibility for elements matching a selector
+const setVisibility = (selector, visibility) => {
+  // Query all elements within the unordered list (ul) that match the given selector
+  let items = ul.querySelectorAll(selector);
+  
+  // Iterate over all matched elements
+  items.forEach(item => {
+    // Set the visibility style for the current element
+    item.style.visibility = visibility;
+  });
+};
+
+// Define a function to handle changes in the select element
 const handleChange = (event) => {
-  //  target the value of the options
-  let selectedValue = event.target.value
-  // add the condition - which is if the first option is selected
+  // Get the value of the currently selected option
+  let selectedValue = event.target.value;
+  
+  // Check if the first option ("0") is selected
   if (selectedValue === "0") {
-    //  select the items with the class of important
-    let items = ul.querySelectorAll(".important")
-    //  add the style vizibility to the important items
-    items.forEach((item) => (item.style.visibility = "visible"))
-    // target the items that do NOT have the class of important
-    let notImportantItems = ul.querySelectorAll(":not(.important)")
-    //  adjust the visibility to hidden for these
-    notImportantItems.forEach((item) => (item.style.visibility = "hidden"))
-  }else{
-    ul.style.visibility= "visible"
+    // If it is, set visibility of '.important' items to 'visible' 
+    // and items without '.important' class to 'hidden'
+    setVisibility(".important", "visible");
+    setVisibility(":not(.important)", "hidden");
+  } else {
+    // If any other option is selected, set all elements within the 'ul' to 'visible'
+    setVisibility("*", "visible");
   }
-}
+};
+
 
 // add the event listener that will check which option is clicked and toggle the handleChange function
 selector.addEventListener("change", handleChange)
